@@ -80,6 +80,31 @@ function searchImages() {
 
     });
 }
+window.addEventListener("scroll", function(){
 
+    let navbar = document.querySelector(".navbar");
+
+    if(window.scrollY > 100){
+        navbar.classList.add("sticky");
+    }
+    else{
+        navbar.classList.remove("sticky");
+    }
+
+});
+/* Auto Play on Hover */
+
+document.querySelectorAll('.portfolio-video').forEach(video => {
+
+    video.addEventListener('mouseenter', () => {
+        video.play();
+    });
+
+    video.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+    });
+
+});
 
 

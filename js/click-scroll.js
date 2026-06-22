@@ -35,3 +35,15 @@ $(document).ready(function(){
     $('.navbar-nav .nav-item .nav-link').eq(0).addClass('active');
     $('.navbar-nav .nav-item .nav-link:link').eq(0).removeClass('inactive');
 });
+
+window.addEventListener("scroll", function () {
+
+    let navbar = document.getElementById("mainNav");
+
+    if (window.scrollY > 100) {
+        navbar.classList.add("fixed-top");
+    } else {
+        navbar.classList.remove("fixed-top");
+    }
+
+});

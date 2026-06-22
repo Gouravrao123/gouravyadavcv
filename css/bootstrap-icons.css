@@ -28,18 +28,176 @@ url("../fonts/bootstrap-icons.woff?30af91bf14e37666a085fb8a161ff36d") format("wo
 body{
     background:#111;
     color:white;
+    
 }
 
 /* Navbar */
 
-nav{
+/* nav{
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:20px 60px;
     background:#000;
+} */
+/* =========================
+   NAVBAR DESIGN
+========================= */
+
+.navbar{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    padding: 18px 0;
+    transition: all .4s ease;
 }
 
+.navbar.sticky{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(15,23,42,.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 5px 25px rgba(0,0,0,.15);
+    animation: slideDown .4s ease;
+}
+
+@keyframes slideDown{
+    from{
+        transform: translateY(-100%);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+
+.navbar-brand{
+    color:#000 !important;
+    font-size:30px;
+    font-weight:700;
+}
+
+.nav-link{
+    color:#000 !important;
+    font-weight:500;
+    margin:0 10px;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#00e5ff !important;
+}
+
+.navbar-toggler{
+    border:none;
+}
+
+.navbar-toggler:focus{
+    box-shadow:none;
+}
+
+/* Mobile Menu */
+
+@media(max-width:991px){
+
+    .navbar-collapse{
+        background:#0f172a;
+        margin-top:15px;
+        border-radius:15px;
+        padding:20px;
+        text-align:center;
+    }
+
+    .nav-item{
+        margin:10px 0;
+    }
+
+    .floating-contact{
+        display:none;
+    }
+
+    .custom-btn{
+        padding:8px 15px;
+        font-size:13px;
+    }
+}
+.clients{
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.clients h3{
+    color:#fff;
+    font-size:40px;
+    font-weight:700;
+}
+
+.tech-card{
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(10px);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+    padding:25px 15px;
+    text-align:center;
+    transition:.4s;
+    height:100%;
+}
+
+.tech-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 15px 35px rgba(0,229,255,.25);
+}
+
+.tech-card img{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+    margin-bottom:15px;
+}
+
+.tech-card h6{
+    color:#fff;
+    margin:0;
+    font-size:16px;
+    font-weight:600;
+}
+/* Contact Buttons */
+
+.floating-contact{
+    margin-left:auto;
+    display:flex;
+    gap:12px;
+}
+
+.call-btn,
+.whatsapp-btn{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    color:#000;
+    font-size:18px;
+    transition:.3s;
+}
+
+.call-btn{
+    background:#2563eb;
+}
+
+.whatsapp-btn{
+    background:#25D366;
+}
+
+.call-btn:hover,
+.whatsapp-btn:hover{
+    transform:translateY(-4px);
+    color:#000;
+}
 .logo{
     font-size:28px;
     font-weight:bold;
@@ -1208,6 +1366,7 @@ nav{
     left:-150px;
     filter:blur(80px);
 }
+
 
 .clients::after{
     content:'';
