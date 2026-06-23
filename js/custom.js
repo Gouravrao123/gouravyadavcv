@@ -1,70 +1,41 @@
+(function ($) {
 
-  (function ($) {
-  
-  "use strict";
+    "use strict";
 
-    // PRE LOADER
-    $(window).load(function(){
-      $('.preloader').fadeOut(1000); // set duration in brackets    
+    // PRELOADER
+    $(window).on('load', function () {
+        $('.preloader').fadeOut(1000);
     });
 
-    // CUSTOM LINK
-    $('.custom-link').click(function(){
-    var el = $(this).attr('href');
-    var elWrapped = $(el);
-    var header_height = $('.navbar').height() + 10;
+    // SMOOTH SCROLL
+    $('.custom-link').on('click', function () {
 
-    scrollToDiv(elWrapped,header_height);
-    return false;
+        let el = $(this).attr('href');
+        let elWrapped = $(el);
+        let headerHeight = $('.navbar').height() + 10;
 
-    function scrollToDiv(element,navheight){
-      var offset = element.offset();
-      var offsetTop = offset.top;
-      var totalScroll = offsetTop-navheight;
+        $('html, body').animate({
+            scrollTop: elWrapped.offset().top - headerHeight
+        }, 300);
 
-      $('body,html').animate({
-      scrollTop: totalScroll
-      }, 300);
-  }
-});
-    
-  })(window.jQuery);
-
-  function searchImages(){
-
-    let input = document.getElementById("searchInput").value;
-
-    if(input.trim() === ""){
-        alert("Please enter something!");
-    }else{
-        alert("Searching for: " + input);
-    }
-}
-
-// Hover Play Videos
-
-const videos = document.querySelectorAll(".hover-video");
-
-videos.forEach(video => {
-
-    video.addEventListener("mouseenter", () => {
-        video.play();
+        return false;
     });
 
-    video.addEventListener("mouseleave", () => {
-        video.pause();
-        video.currentTime = 0;
-    });
+})(window.jQuery);
 
-});
 
+// SEARCH FUNCTION
 function searchImages() {
 
-    let input = document.getElementById("searchInput").value.toLowerCase();
+    let input = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
 
     let cards = document.querySelectorAll(".card");
 
-    cards.forEach(function(card) {
+    cards.forEach(card => {
 
         let titleElement = card.querySelector("h3");
 
@@ -72,39 +43,63 @@ function searchImages() {
 
         let title = titleElement.textContent.toLowerCase();
 
-        if (title.includes(input)) {
-            card.style.display = "";
-        } else {
-            card.style.display = "none";
-        }
-
+        card.style.display =
+            title.includes(input) ? "" : "none";
     });
 }
-window.addEventListener("scroll", function(){
 
-    let navbar = document.querySelector(".navbar");
 
-    if(window.scrollY > 100){
-        navbar.classList.add("sticky");
-    }
-    else{
-        navbar.classList.remove("sticky");
-    }
+// STICKY NAVBAR
+window.addEventListener("scroll", () => {
 
-});
-/* Auto Play on Hover */
+    const navbar = document.querySelector(".navbar");
 
-document.querySelectorAll('.portfolio-video').forEach(video => {
+    if (!navbar) return;
 
-    video.addEventListener('mouseenter', () => {
-        video.play();
-    });
-
-    video.addEventListener('mouseleave', () => {
-        video.pause();
-        video.currentTime = 0;
-    });
-
+    navbar.classList.toggle(
+        "sticky",
+        window.scrollY > 100
+    );
 });
 
 
+// VIDEO HOVER + MOBILE TOUCH PLAY
+document.addEventListener("DOMContentLoaded", () => {
+
+    const videos = document.querySelectorAll(".portfolio-video");
+
+    videos.forEach(video => {
+
+        const card = video.closest(".video-card");
+
+        if (!card) return;
+
+        // Desktop Hover
+        card.addEventListener("mouseenter", () => {
+            video.play();
+        });
+
+        card.addEventListener("mouseleave", () => {
+            video.pause();
+            video.currentTime = 0;
+        });
+
+        // Mobile Touch
+        card.addEventListener("touchstart", () => {
+
+            videos.forEach(v => {
+
+                if (v !== video) {
+                    v.pause();
+                    v.currentTime = 0;
+                }
+
+            });
+
+            video.play();
+
+        }, { passive: true });
+
+    });
+
+});
